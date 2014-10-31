@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><MavenProject projectName="iris-core" artifactId="iris-core" groupId="br.unb.cic.iris" version="0.0.1-SNAPSHOT">
+  <id>0</id>
+  <modules/>
+  <reports>
+    <org.codehaus.mojo.dashboard.report.plugin.beans.CpdReportBean>
+      <nbClasses>1</nbClasses>
+      <nbDuplicate>1</nbDuplicate>
+      <dateGeneration>2014-10-30 22:45:41.477 BRST</dateGeneration>
+      <id>0</id>
+    </org.codehaus.mojo.dashboard.report.plugin.beans.CpdReportBean>
+    <org.codehaus.mojo.dashboard.report.plugin.beans.PmdReportBean>
+      <nbClasses>10</nbClasses>
+      <nbViolations>48</nbViolations>
+      <dateGeneration>2014-10-30 22:45:41.477 BRST</dateGeneration>
+      <id>0</id>
+    </org.codehaus.mojo.dashboard.report.plugin.beans.PmdReportBean>
+    <org.codehaus.mojo.dashboard.report.plugin.beans.CoberturaReportBean>
+      <nbClasses>0</nbClasses>
+      <lineCoverRate>-1.0</lineCoverRate>
+      <branchCoverRate>-1.0</branchCoverRate>
+      <numberOfCoveredBranches>0</numberOfCoveredBranches>
+      <numberOfCoveredLines>0</numberOfCoveredLines>
+      <numberOfValidBranches>0</numberOfValidBranches>
+      <numberOfValidLines>0</numberOfValidLines>
+      <dateGeneration>2014-10-30 22:45:41.477 BRST</dateGeneration>
+      <id>0</id>
+    </org.codehaus.mojo.dashboard.report.plugin.beans.CoberturaReportBean>
+    <org.codehaus.mojo.dashboard.report.plugin.beans.SurefireReportBean>
+      <nbTests>3</nbTests>
+      <nbErrors>0</nbErrors>
+      <nbFailures>0</nbFailures>
+      <nbSkipped>0</nbSkipped>
+      <sucessRate>100.0</sucessRate>
+      <elapsedTime>0.001</elapsedTime>
+      <dateGeneration>2014-10-30 22:45:41.477 BRST</dateGeneration>
+      <id>0</id>
+    </org.codehaus.mojo.dashboard.report.plugin.beans.SurefireReportBean>
+  </reports>
+</MavenProject>

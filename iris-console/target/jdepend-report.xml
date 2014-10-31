@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<JDepend>
+    <Packages>
+
+        <Package name="br.unb.cic.iris">
+            <Stats>
+                <TotalClasses>1</TotalClasses>
+                <ConcreteClasses>1</ConcreteClasses>
+                <AbstractClasses>0</AbstractClasses>
+                <Ca>0</Ca>
+                <Ce>6</Ce>
+                <A>0</A>
+                <I>1</I>
+                <D>0</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="MainProgram.java">
+                    br.unb.cic.iris.MainProgram
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>br.unb.cic.iris.command.console</Package>
+                <Package>br.unb.cic.iris.core</Package>
+                <Package>br.unb.cic.iris.i18n</Package>
+                <Package>java.io</Package>
+                <Package>java.lang</Package>
+                <Package>java.util</Package>
+            </DependsUpon>
+
+            <UsedBy>
+            </UsedBy>
+        </Package>
+
+        <Package name="br.unb.cic.iris.command">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="br.unb.cic.iris.command.console">
+            <Stats>
+                <TotalClasses>7</TotalClasses>
+                <ConcreteClasses>7</ConcreteClasses>
+                <AbstractClasses>0</AbstractClasses>
+                <Ca>1</Ca>
+                <Ce>11</Ce>
+                <A>0</A>
+                <I>0.92</I>
+                <D>0.08</D>
+                <V>1</V>
+            </Stats>
+
+            <AbstractClasses>
+            </AbstractClasses>
+
+            <ConcreteClasses>
+                <Class sourceFile="ConsoleConnectCommand.java">
+                    br.unb.cic.iris.command.console.ConsoleConnectCommand
+                </Class>
+                <Class sourceFile="ConsoleHelpCommand.java">
+                    br.unb.cic.iris.command.console.ConsoleHelpCommand
+                </Class>
+                <Class sourceFile="ConsoleListProvidersCommand.java">
+                    br.unb.cic.iris.command.console.ConsoleListProvidersCommand
+                </Class>
+                <Class sourceFile="ConsoleQuitCommand.java">
+                    br.unb.cic.iris.command.console.ConsoleQuitCommand
+                </Class>
+                <Class sourceFile="ConsoleSendMessageCommand.java">
+                    br.unb.cic.iris.command.console.ConsoleSendMessageCommand
+                </Class>
+                <Class sourceFile="ConsoleStatusCommand.java">
+                    br.unb.cic.iris.command.console.ConsoleStatusCommand
+                </Class>
+                <Class sourceFile="LoadCommand.java">
+                    br.unb.cic.iris.command.console.LoadCommand
+                </Class>
+            </ConcreteClasses>
+
+            <DependsUpon>
+                <Package>br.unb.cic.iris.command</Package>
+                <Package>br.unb.cic.iris.core</Package>
+                <Package>br.unb.cic.iris.core.model</Package>
+                <Package>br.unb.cic.iris.i18n</Package>
+                <Package>br.unb.cic.iris.mail</Package>
+                <Package>br.unb.cic.iris.mail.provider</Package>
+                <Package>br.unb.cic.iris.reflect</Package>
+                <Package>java.io</Package>
+                <Package>java.lang</Package>
+                <Package>java.net</Package>
+                <Package>java.util</Package>
+            </DependsUpon>
+
+            <UsedBy>
+                <Package>br.unb.cic.iris</Package>
+            </UsedBy>
+        </Package>
+
+        <Package name="br.unb.cic.iris.core">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="br.unb.cic.iris.core.model">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="br.unb.cic.iris.i18n">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="br.unb.cic.iris.mail">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="br.unb.cic.iris.mail.provider">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="br.unb.cic.iris.reflect">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.io">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.lang">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.net">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+
+        <Package name="java.util">
+            <error>No stats available: package referenced, but not analyzed.</error>
+        </Package>
+    </Packages>
+
+    <Cycles>
+    </Cycles>
+</JDepend>

@@ -1,0 +1,17 @@
+br.unb.cic.iris.mail
+br.unb.cic.iris.mail.provider
+br.unb.cic.iris.i18n
+br.unb.cic.iris.util
+br.unb.cic.iris.persistence
+br.unb.cic.iris.persistence.sqlite3
+br.unb.cic.iris.reflect
+br.unb.cic.iris.core
+br.unb.cic.iris.core.exception
+br.unb.cic.iris.core.model
+br.unb.cic.iris.command
+br.unb.cic.iris.command.manager
+br.unb.cic.iris
+br.unb.cic.iris.command.console
+br.unb.cic.iris.gui
+br.unb.cic.iris.command.gui
+br.unb.cic.iris.teste

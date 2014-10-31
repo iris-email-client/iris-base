@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><MavenProject projectName="iris-gui" artifactId="iris-gui" groupId="br.unb.cic.iris" version="0.0.1-SNAPSHOT">
+  <id>0</id>
+  <modules/>
+  <reports>
+    <org.codehaus.mojo.dashboard.report.plugin.beans.CpdReportBean>
+      <nbClasses>0</nbClasses>
+      <nbDuplicate>0</nbDuplicate>
+      <dateGeneration>2014-10-30 22:46:13.362 BRST</dateGeneration>
+      <id>0</id>
+    </org.codehaus.mojo.dashboard.report.plugin.beans.CpdReportBean>
+    <org.codehaus.mojo.dashboard.report.plugin.beans.PmdReportBean>
+      <nbClasses>2</nbClasses>
+      <nbViolations>10</nbViolations>
+      <dateGeneration>2014-10-30 22:46:13.362 BRST</dateGeneration>
+      <id>0</id>
+    </org.codehaus.mojo.dashboard.report.plugin.beans.PmdReportBean>
+    <org.codehaus.mojo.dashboard.report.plugin.beans.CoberturaReportBean>
+      <nbClasses>0</nbClasses>
+      <lineCoverRate>-1.0</lineCoverRate>
+      <branchCoverRate>-1.0</branchCoverRate>
+      <numberOfCoveredBranches>0</numberOfCoveredBranches>
+      <numberOfCoveredLines>0</numberOfCoveredLines>
+      <numberOfValidBranches>0</numberOfValidBranches>
+      <numberOfValidLines>0</numberOfValidLines>
+      <dateGeneration>2014-10-30 22:46:13.362 BRST</dateGeneration>
+      <id>0</id>
+    </org.codehaus.mojo.dashboard.report.plugin.beans.CoberturaReportBean>
+  </reports>
+</MavenProject>

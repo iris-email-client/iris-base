@@ -1,0 +1,11 @@
+/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/command/console/ConsoleListFoldersCommand.java
+/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/command/console/ConsoleConnectCommand.java
+/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/command/console/ConsoleStatusCommand.java
+/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/command/console/ConsoleHelpCommand.java
+/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/command/console/ConsoleCommandManager.java
+/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/MainProgram.java
+/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/command/console/ConsoleSendMessageCommand.java
+/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/command/console/ConsoleGetMessagesCommand.java
+/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/command/console/ConsoleListProvidersCommand.java
+/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/command/console/LoadCommand.java
+/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/command/console/ConsoleQuitCommand.java

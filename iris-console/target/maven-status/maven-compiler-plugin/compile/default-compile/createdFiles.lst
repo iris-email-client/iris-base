@@ -1,0 +1,11 @@
+br/unb/cic/iris/command/console/ConsoleCommandManager.class
+br/unb/cic/iris/command/console/LoadCommand.class
+br/unb/cic/iris/MainProgram.class
+br/unb/cic/iris/command/console/ConsoleConnectCommand.class
+br/unb/cic/iris/command/console/ConsoleHelpCommand.class
+br/unb/cic/iris/command/console/ConsoleGetMessagesCommand.class
+br/unb/cic/iris/command/console/ConsoleStatusCommand.class
+br/unb/cic/iris/command/console/ConsoleListProvidersCommand.class
+br/unb/cic/iris/command/console/ConsoleListFoldersCommand.class
+br/unb/cic/iris/command/console/ConsoleQuitCommand.class
+br/unb/cic/iris/command/console/ConsoleSendMessageCommand.class

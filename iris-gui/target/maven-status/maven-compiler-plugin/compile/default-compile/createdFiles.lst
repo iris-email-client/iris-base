@@ -1,0 +1,9 @@
+br/unb/cic/iris/GuiMainProgram.class
+br/unb/cic/iris/gui/SendPanel$2.class
+br/unb/cic/iris/GuiMainProgram$1.class
+br/unb/cic/iris/command/gui/GuiCommandManager.class
+br/unb/cic/iris/gui/MainPanel.class
+br/unb/cic/iris/gui/MainPanel$1.class
+br/unb/cic/iris/command/gui/GuiSendMesssageCommand.class
+br/unb/cic/iris/gui/SendPanel$1.class
+br/unb/cic/iris/gui/SendPanel.class
