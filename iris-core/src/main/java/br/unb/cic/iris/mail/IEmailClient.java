@@ -37,8 +37,9 @@ public interface IEmailClient {
 	 * @return
 	 * @throws EmailException
 	 */
-	public List<EmailMessage> getMessages(int seqnum) throws EmailException;
+	public List<EmailMessage> getMessages(String folder, int seqnum) throws EmailException;
 
+	public List<EmailMessage> getMessages(String folder, int begin, int end) throws EmailException;
 	
 	
 	

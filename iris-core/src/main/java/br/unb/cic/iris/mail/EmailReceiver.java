@@ -1,6 +1,7 @@
 package br.unb.cic.iris.mail;
 
 import static br.unb.cic.iris.i18n.Message.message;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,6 @@ import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.mail.Store;
 import javax.mail.event.FolderEvent;
 import javax.mail.event.FolderListener;
@@ -23,29 +23,13 @@ import br.unb.cic.iris.core.model.EmailMessage;
 import br.unb.cic.iris.core.model.IrisFolder;
 
 public class EmailReceiver implements StoreListener, FolderListener {
+	private Store store;
 	private EmailSession session;
 	private EmailProvider provider;
 
 	public EmailReceiver(EmailProvider provider, String encoding) {
 		this.provider = provider;
 		session = new EmailSession(provider, encoding);
-	}
-
-	private Store store;
-
-	public Store getStore() throws MessagingException {
-		if (store == null) {
-			store = createStoreAndConnect();
-		}
-		return store;
-	}
-
-	public Store renew() throws MessagingException {
-		if (store != null) {
-			store.close();
-			store = null;
-		}
-		return getStore();
 	}
 
 	public List<IrisFolder> listFolders() throws EmailException {
@@ -67,13 +51,8 @@ public class EmailReceiver implements StoreListener, FolderListener {
 			SearchTerm searchTerm) throws EmailException {
 		List<EmailMessage> messages = new ArrayList<>();
 
+		Folder folder = openFolder(folderName);
 		try {
-			Store store = getStore();
-
-			Folder folder = store.getFolder(folderName);
-			// open folder only to read
-			folder.open(Folder.READ_ONLY);
-
 			Message messagesRetrieved[] = null;
 			if (searchTerm == null) {
 				// list all
@@ -83,11 +62,61 @@ public class EmailReceiver implements StoreListener, FolderListener {
 				messagesRetrieved = folder.search(searchTerm);
 			}
 
-			int cont = 0;
-			int total = messagesRetrieved.length;
-			for (Message m : messagesRetrieved) {
-				messages.add(convertToIrisMessage(m));
+			messages = convertToIrisMessage(messagesRetrieved);
 
+			// TODO deixa o store aberto mesmo?
+			// store.close();
+		} catch (MessagingException e) {
+			//TODO fazer tratamento de excecoes em tudo
+			throw new EmailException(e.getMessage(), e);
+		} 
+
+		return messages;
+	}
+	
+	public List<EmailMessage> getMessages(String folderName, int begin, int end) throws EmailException {
+		List<EmailMessage> messages = new ArrayList<>();
+		Folder folder = openFolder(folderName);
+		try {
+			Message messagesRetrieved[] = folder.getMessages(begin,end);
+			messages = convertToIrisMessage(messagesRetrieved);
+		} catch (MessagingException e) {
+			throw new EmailException(e.getMessage(), e);
+		} 
+		return messages;
+	}
+	
+	public List<EmailMessage> getMessages(String folderName, int seqnum) throws EmailException{
+		List<EmailMessage> messages = new ArrayList<>();
+		Folder folder = openFolder(folderName);
+		try {
+			List<Message> messagesList = new ArrayList<>();
+			int messageCount = folder.getMessageCount();
+			for(int i = seqnum; i <= messageCount; i++) {
+	            Message message = folder.getMessage(i);
+	            messagesList.add(message);
+	        }
+
+			Message[] messagesRetrieved = toArray(messagesList);
+			messages = convertToIrisMessage(messagesRetrieved);
+		} catch (MessagingException e) {
+			throw new EmailException(e.getMessage(), e);
+		} 
+		return messages;
+	}
+
+	private Message[] toArray(List<Message> messagesList){
+		return messagesList.stream().toArray(Message[]::new);
+	}
+	
+	private List<EmailMessage> convertToIrisMessage(Message[] messagesRetrieved) throws EmailException {
+		List<EmailMessage> messages = new ArrayList<>();
+		int cont = 0;
+		int total = messagesRetrieved.length;
+		for (Message m : messagesRetrieved) {
+			try {
+				messages.add(convertToIrisMessage(m));
+				
 				// TODO arrumar progresso
 				if (total != 0) {
 					for (int i = 0; i < 15; i++) {
@@ -96,27 +125,32 @@ public class EmailReceiver implements StoreListener, FolderListener {
 					cont++;
 					System.out.print((100 * cont / total) + "% completed");
 				}
-
+			} catch (IOException e) {
+				throw new EmailException(e.getMessage(), e);
+			} catch (MessagingException e) {
+				throw new EmailException(e.getMessage(), e);
 			}
-			System.out.println();
-
-			// TODO deixa o store aberto mesmo?
-			// store.close();
-		} catch (NoSuchProviderException e) {
-			// TODO fazer tratamento de excessoes (em tudo)
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		System.out.println();
 
 		return messages;
 	}
 
+	private Folder openFolder(String folderName) throws EmailException{
+		return openFolder(folderName, Folder.READ_ONLY);
+	}
+	private Folder openFolder(String folderName, int openType) throws EmailException{
+		try {
+			Folder folder = getStore().getFolder(folderName);
+			folder.open(openType);
+			
+			return folder;
+		} catch (MessagingException e) {
+			throw new EmailException(e.getMessage(), e);
+		} catch (EmailException e) {
+			throw new EmailException(e.getMessage(), e);
+		}
+	}
 	private EmailMessage convertToIrisMessage(Message m) throws IOException,
 			MessagingException {
 		// System.out.println("Converting to iris: "+m.getSubject());
@@ -151,6 +185,29 @@ public class EmailReceiver implements StoreListener, FolderListener {
 		session.connect(store, provider.getStoreHost(), provider.getStorePort());
 
 		return store;
+	}
+	
+	public Store getStore() throws EmailException {
+		if (store == null) {
+			try {
+				store = createStoreAndConnect();
+			} catch (MessagingException e) {
+				throw new EmailException(e.getMessage(), e);
+			}
+		}
+		return store;
+	}
+
+	public Store renew() throws EmailException {
+		if (store != null) {
+			try {
+				store.close();
+			} catch (MessagingException e) {
+				throw new EmailException(e.getMessage(), e);
+			}
+			store = null;
+		}
+		return getStore();
 	}
 
 	@Override

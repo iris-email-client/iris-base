@@ -48,9 +48,15 @@ public class EmailClient implements IEmailClient {
 	}
 
 	@Override
-	public List<EmailMessage> getMessages(int seqnum) throws EmailException {
+	public List<EmailMessage> getMessages(String folder, int seqnum) throws EmailException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public List<EmailMessage> getMessages(String folder, int begin, int end)
+			throws EmailException {
+		return receiver.getMessages(folder, begin, end);
 	}
 
 	@Override
