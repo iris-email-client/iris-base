@@ -32,9 +32,11 @@ public class ConsoleGetMessagesCommand extends AbstractMailCommand {
 				List<EmailMessage> messages = SystemFacade.instance()
 						.getMessages(folder);
 				System.out.println("Total messages: " + messages.size());
-				messages.forEach(msg -> System.out.printf("%s - %s \t- %s%n",
-						formatter.format(msg.getDate()), msg.getFrom(),
-						msg.getSubject()));
+				for(EmailMessage msg: messages){
+					System.out.printf("%s - %s \t- %s%n",
+							formatter.format(msg.getDate()), msg.getFrom(),
+							msg.getSubject());
+				}
 			} catch (EmailException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

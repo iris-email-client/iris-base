@@ -50,7 +50,10 @@ public abstract class BaseCommandManager implements ICommandManager {
 	}
 
 	private void notifyListeners(MailCommand command) {
-		commandListeners.forEach(n -> n.commandAdded(command));
+		//commandListeners.forEach(n -> n.commandAdded(command));
+		for(CommandListener listener: commandListeners){
+			listener.commandAdded(command);
+		}
 	}
 
 	@Override

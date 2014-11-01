@@ -23,8 +23,9 @@ public class ConsoleListFoldersCommand extends AbstractMailCommand {
 		try {
 			List<IrisFolder> irisFolders = SystemFacade.instance()
 					.listFolders();
-			irisFolders.forEach(folder -> System.out.printf(" + %s%n",
-					folder.getName()));
+			for(IrisFolder folder: irisFolders){
+				System.out.printf(" + %s%n", folder.getName());
+			}
 		} catch (EmailException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

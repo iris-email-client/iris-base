@@ -8,7 +8,7 @@ import java.util.Vector;
 
 public class BaseManager<T> {
 	private Map<String, Integer> map = Collections
-			.synchronizedMap(new HashMap<>());
+			.synchronizedMap(new HashMap<String, Integer>());
 	private List<T> list = new Vector<>();
 
 	public void add(String key, T value) {
@@ -27,12 +27,15 @@ public class BaseManager<T> {
 	}
 
 	public void clear() {
-		map = Collections.synchronizedMap(new HashMap<>());
+		map = Collections.synchronizedMap(new HashMap<String, Integer>());
 		list = new Vector<>();
 	}
 
 	public void print() {
 		// list.forEach(n -> System.out.println(n));
-		list.forEach(System.out::println);
+		//list.forEach(System.out::println);
+		for(T t: list){
+			System.out.println(t);
+		}
 	}
 }

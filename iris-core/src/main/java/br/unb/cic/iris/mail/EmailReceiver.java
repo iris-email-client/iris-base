@@ -106,7 +106,7 @@ public class EmailReceiver implements StoreListener, FolderListener {
 	}
 
 	private Message[] toArray(List<Message> messagesList){
-		return messagesList.stream().toArray(Message[]::new);
+		return messagesList.toArray(new Message[messagesList.size()]);
 	}
 	
 	private List<EmailMessage> convertToIrisMessage(Message[] messagesRetrieved) throws EmailException {

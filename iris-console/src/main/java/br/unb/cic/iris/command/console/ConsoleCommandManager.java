@@ -31,7 +31,9 @@ public class ConsoleCommandManager extends AbstractCommandManager {
 				System.err.printf("%s: %s", message("error"), eux.getLocalizedMessage());
 			} catch (EmailMessageValidationException emvx) {
 				System.err.println(message("error.validation"));
-				emvx.getMessages().forEach(m -> System.err.println(" - "+m));
+				for(String msg: emvx.getMessages()){
+					System.err.println(" - "+msg);
+				}
 			} catch (EmailException ex) {
 				System.err.printf("%s: %s", message("error"), ex.getMessage());
 			} catch (Exception e) {
