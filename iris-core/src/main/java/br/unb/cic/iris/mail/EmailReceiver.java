@@ -23,6 +23,7 @@ import br.unb.cic.iris.core.model.EmailMessage;
 import br.unb.cic.iris.core.model.IrisFolder;
 
 public class EmailReceiver implements StoreListener, FolderListener {
+	private Store store;
 	private EmailSession session;
 	private EmailProvider provider;
 
@@ -30,8 +31,6 @@ public class EmailReceiver implements StoreListener, FolderListener {
 		this.provider = provider;
 		session = new EmailSession(provider, encoding);
 	}
-
-	private Store store;
 
 	public List<IrisFolder> listFolders() throws EmailException {
 		List<IrisFolder> folders = new ArrayList<>();
@@ -98,7 +97,7 @@ public class EmailReceiver implements StoreListener, FolderListener {
 	            messagesList.add(message);
 	        }
 
-			Message[] messagesRetrieved = messagesList.stream().toArray(Message[]::new);
+			Message[] messagesRetrieved = toArray(messagesList);
 			messages = convertToIrisMessage(messagesRetrieved);
 		} catch (MessagingException e) {
 			throw new EmailException(e.getMessage(), e);
@@ -106,6 +105,10 @@ public class EmailReceiver implements StoreListener, FolderListener {
 		return messages;
 	}
 
+	private Message[] toArray(List<Message> messagesList){
+		return messagesList.stream().toArray(Message[]::new);
+	}
+	
 	private List<EmailMessage> convertToIrisMessage(Message[] messagesRetrieved) throws EmailException {
 		List<EmailMessage> messages = new ArrayList<>();
 		int cont = 0;
@@ -127,8 +130,8 @@ public class EmailReceiver implements StoreListener, FolderListener {
 			} catch (MessagingException e) {
 				throw new EmailException(e.getMessage(), e);
 			}
-			System.out.println();
 		}
+		System.out.println();
 
 		return messages;
 	}
