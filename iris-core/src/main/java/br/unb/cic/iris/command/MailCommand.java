@@ -21,7 +21,6 @@ public interface MailCommand {
 	 */
 	public void execute();
 
-	// public void execute(String...parameters);
 	public void setParameters(String... parameters);
 
 	/**
