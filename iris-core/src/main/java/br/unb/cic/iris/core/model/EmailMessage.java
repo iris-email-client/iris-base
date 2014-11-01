@@ -10,18 +10,44 @@ package br.unb.cic.iris.core.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * A class that represents an email message.
  * 
  * @author ExceptionHandling
  */
+@Entity
+@Table(name="TB_MESSAGE")
 public class EmailMessage extends FolderContent {
+	@Id
+	@GeneratedValue
+	@Column(name="ID")
+	private Long id;
+	
+	@Column(name="FROM")
 	private String from;
+	
+	@Column(name="RECIPIENT")
 	private String to;
+	
+	@Column(name="CC_RECIPIENT")
 	private String cc;
+	
+	@Column(name="BCC_RECIPIENT")
 	private String bcc;
+	
+	@Column(name="SUBJECT")
 	private String subject;
+	
+	@Column(name="MESSAGE_CONTENT")
 	private String message;
+	
+	@Column(name="DATE")
 	private Date date;
 
 	public EmailMessage() {
@@ -45,6 +71,14 @@ public class EmailMessage extends FolderContent {
 		this.message = message;
 	}
 
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public Date getDate() {
 		return date;
 	}

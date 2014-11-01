@@ -129,8 +129,8 @@
 					<version>3.2</version>
 					<configuration>
 						<encoding>${iris.encoding}</encoding>
-						<source>${compiler.version}</source>
-						<target>${compiler.version}</target>
+						<source>1.8</source>
+						<target>1.8</target>
 						<optimize>true</optimize>
 						<showDeprecation>false</showDeprecation>
 						<showWarnings>false</showWarnings>

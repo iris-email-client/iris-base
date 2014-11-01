@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<pmd version="5.1.2" timestamp="2014-10-30T22:45:55.759">
-<file name="/home/pedro/desenvolvimento/workspace-mestrado/iris-parent/iris-console/src/main/java/br/unb/cic/iris/command/console/ConsoleGetMessagesCommand.java">
-<violation beginline="43" endline="45" begincolumn="24" endcolumn="17" rule="EmptyIfStmt" ruleset="Empty Code" package="br.unb.cic.iris.command.console" class="ConsoleGetMessagesCommand" method="execute" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.1.2/rules/java/empty.html#EmptyIfStmt" priority="3">
-Avoid empty if statements
-</violation>
-</file>
-</pmd>
