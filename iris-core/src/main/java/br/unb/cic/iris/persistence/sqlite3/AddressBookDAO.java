@@ -9,7 +9,7 @@ import br.unb.cic.iris.core.model.AddressBookEntry;
 import br.unb.cic.iris.persistence.IAddressBookDAO;
 import br.unb.cic.iris.util.HibernateUtil;
 
-public class AddressBookDAO implements IAddressBookDAO {
+public class AddressBookDAO extends AbstractDAO<AddressBookEntry> implements IAddressBookDAO {
 		
 	private static final String FIND_BY_NICK_NAME = 
 			"FROM AddressBookEntry a "
@@ -17,7 +17,8 @@ public class AddressBookDAO implements IAddressBookDAO {
 	
 	@Override
 	public void save(AddressBookEntry entry) throws DBException{
-		Session session = null;
+		super.saveOrUpdate(entry);
+		/*Session session = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -30,7 +31,7 @@ public class AddressBookDAO implements IAddressBookDAO {
 			if(session != null && session.isOpen()) {
 				session.close();
 			}
-		}
+		}*/
 	}
 
 	
@@ -56,7 +57,7 @@ public class AddressBookDAO implements IAddressBookDAO {
 
 	@Override
 	public void delete(String nick) {
-		
+		//TODO
 	}
 
 }

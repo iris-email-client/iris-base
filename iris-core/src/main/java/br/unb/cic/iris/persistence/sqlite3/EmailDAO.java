@@ -8,24 +8,11 @@
  */
 package br.unb.cic.iris.persistence.sqlite3;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.hibernate.Session;
-
 import br.unb.cic.iris.core.exception.DBException;
-import br.unb.cic.iris.core.model.Account;
 import br.unb.cic.iris.core.model.EmailMessage;
-import br.unb.cic.iris.core.model.IrisFolder;
 import br.unb.cic.iris.persistence.IEmailDAO;
-import br.unb.cic.iris.util.HibernateUtil;
 
 /**
  * An implementation of @see br.unb.cic.iris.persistence.EmailDAO using the
@@ -34,7 +21,7 @@ import br.unb.cic.iris.util.HibernateUtil;
  * @author rbonifacio
  *
  */
-public class EmailDAO implements IEmailDAO {
+public class EmailDAO extends AbstractDAO<EmailMessage> implements IEmailDAO {
 
 	Logger logger = Logger.getLogger(EmailDAO.class.getName());
 	
@@ -58,7 +45,8 @@ public class EmailDAO implements IEmailDAO {
 
 	@Override
 	public void saveMessage(EmailMessage message) throws DBException {
-		Session session = null;
+		super.saveOrUpdate(message);
+		/*Session session = null;
 		try {
 			logger.info("saving message into the database");
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -69,7 +57,7 @@ public class EmailDAO implements IEmailDAO {
 			if(session != null && session.isOpen()) {
 				session.close();
 			}
-		}
+		}*/
 	}
 
 
