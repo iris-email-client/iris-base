@@ -22,6 +22,7 @@ import br.unb.cic.iris.mail.EmailProvider;
 import br.unb.cic.iris.mail.IEmailClient;
 import br.unb.cic.iris.mail.provider.DefaultProvider;
 import br.unb.cic.iris.mail.provider.ProviderManager;
+import br.unb.cic.iris.persistence.IAddressBookDAO;
 import br.unb.cic.iris.persistence.IEmailDAO;
 import br.unb.cic.iris.persistence.sqlite3.EmailDAO;
 import br.unb.cic.iris.util.EmailValidator;
@@ -78,12 +79,12 @@ public final class SystemFacade {
 	private void parseEmail(String email){
 		EmailValidator validator = new EmailValidator();
 		if(!validator.validate(email)){
-			getEmailFromAddressBook(email);
+			String addressBookEmail = getEmailFromAddressBook(email);
 		}
 	}
 	
-	private void getEmailFromAddressBook(String nick){
-		//TODO
+	private String getEmailFromAddressBook(String nick){
+		return new AddressBook().getAddress(nick);
 	}
 	
 	public List<EmailMessage> getMessages(String folder) throws EmailException {

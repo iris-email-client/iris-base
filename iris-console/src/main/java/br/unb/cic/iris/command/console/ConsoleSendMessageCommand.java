@@ -15,7 +15,6 @@ import java.util.Scanner;
 import br.unb.cic.iris.command.SendMessageCommand;
 import br.unb.cic.iris.core.SystemFacade;
 import br.unb.cic.iris.core.model.EmailMessage;
-import br.unb.cic.iris.util.EmailValidator;
 
 /**
  * 
@@ -38,24 +37,16 @@ public class ConsoleSendMessageCommand extends SendMessageCommand {
 	protected EmailMessage createMessage() {
 		Scanner sc = new Scanner(System.in);
 
-		// String from = read(sc, "command.send.label.from");
 		String from = SystemFacade.instance().getProvider().getUsername();
 		System.out.printf("%s: %s%n", message("command.send.label.from"), from);
 
 		String to = read(sc, "command.send.label.to");
+		String cc = read(sc, "command.send.label.cc");
+		String bcc = read(sc, "command.send.label.bcc");
 		String subject = read(sc, "command.send.label.subject");
 		String content = read(sc, "command.send.label.content");
 
-		return new EmailMessage(from, to, subject, content);
-	}
-
-	private String getValidEmail(Scanner sc, String question){
-		EmailValidator validator = new EmailValidator();
-		String email = read(sc, question);
-		if(!validator.validate(email)){
-			//TODO pegar do addressbook
-		}
-		return email;
+		return new EmailMessage(from, to, cc, bcc, subject, content);
 	}
 	
 	private static String read(Scanner sc, String question) {

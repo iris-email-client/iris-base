@@ -25,7 +25,7 @@ public class ConsoleCommandManager extends AbstractCommandManager {
 	public void runCommand(String cmd) {
 		if (notEmpty(cmd)) {
 			try {
-				MailCommand command = createCommand(cmd);
+				MailCommand command = createCommand(cmd.trim());
 				command.execute();
 			} catch (EmailUncheckedException eux) {
 				System.err.printf("%s: %s", message("error"), eux.getLocalizedMessage());
@@ -38,6 +38,8 @@ public class ConsoleCommandManager extends AbstractCommandManager {
 				System.err.printf("%s: %s", message("error"), ex.getMessage());
 			} catch (Exception e) {
 				e.printStackTrace();
+			} catch (Throwable t){
+				t.printStackTrace();
 			}
 		}
 	}
