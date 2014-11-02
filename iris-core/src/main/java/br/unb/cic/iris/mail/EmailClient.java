@@ -4,14 +4,13 @@ import java.util.List;
 
 import javax.mail.search.SearchTerm;
 
-import org.apache.commons.validator.EmailValidator;
-
 import br.unb.cic.iris.core.exception.DBException;
 import br.unb.cic.iris.core.exception.EmailException;
 import br.unb.cic.iris.core.model.EmailMessage;
 import br.unb.cic.iris.core.model.IrisFolder;
 import br.unb.cic.iris.mail.provider.GmailProvider;
 import br.unb.cic.iris.persistence.sqlite3.AddressBookDAO;
+import br.unb.cic.iris.util.EmailValidator;
 
 public class EmailClient implements IEmailClient {
 	public static final String CHARACTER_ENCODING = "UTF-8";
@@ -40,16 +39,15 @@ public class EmailClient implements IEmailClient {
 		//TODO: I think this would be necessary in the case 
 		//where the AddressBook feature is enabled. 
 		
-		//email.setTo(setAddress(email.getTo());
-		//email.setCc(setAddress(email.getCc());
-		//email.setBcc(setAddress(email.getBccc());
-		
+		//email.setTo(findAddress(email.getTo());
+		//email.setCc(findAddress(email.getCc());
+		//email.setBcc(findAddress(email.getBccc());
 		
 		sender.send(email);
 	}
 
 	private String findAddress(String email) throws DBException {
-		if(email != null && ! EmailValidator.getInstance().isValid(email)){
+		if(email != null && ! EmailValidator.validate(email)){
 			return (AddressBookDAO.instance().find(email)).getAddress();
 		}
 		return email;
@@ -67,15 +65,13 @@ public class EmailClient implements IEmailClient {
 	}
 
 	@Override
-	public List<EmailMessage> getMessages(String folder, SearchTerm searchTerm)
-			throws EmailException {
+	public List<EmailMessage> getMessages(String folder, SearchTerm searchTerm) throws EmailException {
 		return receiver.getMessages(folder, searchTerm);
 	}
 
 	@Override
 	public List<EmailMessage> getMessages(String folder, int seqnum) throws EmailException {
-		// TODO Auto-generated method stub
-		return null;
+		return receiver.getMessages(folder, seqnum);
 	}
 	
 	@Override
@@ -89,5 +85,5 @@ public class EmailClient implements IEmailClient {
 		// TODO ......
 		return sender.validateEmailMessage(message);
 	}
-
+	
 }

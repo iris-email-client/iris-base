@@ -15,6 +15,7 @@
         
         <mapping class="br.unb.cic.iris.core.model.AddressBookEntry" />
         <mapping class="br.unb.cic.iris.core.model.EmailMessage" />
+        <mapping class="br.unb.cic.iris.core.model.IrisFolder" />
              
     </session-factory>
 </hibernate-configuration>

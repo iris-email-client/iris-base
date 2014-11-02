@@ -11,34 +11,42 @@ package br.unb.cic.iris.core.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 /**
  * A domain class that represents email folders.
  * 
  * @author rbonifacio
  */
+@Entity
+@Table(name = "TB_FOLDER")
 public class IrisFolder extends FolderContent {
 	public static final String INBOX = "INBOX";
-
-	private Integer id;
+	public static final String OUTBOX = "OUTBOX";
+	
+	@Column(name="NAME", unique=true)
 	private String name;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<FolderContent> contents;
 
+	public IrisFolder() {
+		this(null,"");
+	}
+	
 	public IrisFolder(String name) {
-		this.name = name;
-		contents = new ArrayList<FolderContent>();
+		this(null,name);
 	}
 
 	public IrisFolder(Integer id, String name) {
-		this(name);
-		this.id = id;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
+		super(id);
+		this.name = name;
+		contents = new ArrayList<FolderContent>();
 	}
 
 	public String getName() {

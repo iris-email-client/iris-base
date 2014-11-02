@@ -12,8 +12,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,14 +25,10 @@ import javax.persistence.Table;
  * @author ExceptionHandling
  */
 @Entity
-@Table(name="TB_MESSAGE")
+@Table(name = "TB_MESSAGE")
 public class EmailMessage extends FolderContent {
-	@Id
-	@GeneratedValue
-	@Column(name="ID")
-	private Long id;
 	
-	@Column(name="UID")
+	@Column(name="UID", unique=true)
 	private String uid;
 	
 	@Column(name="FROM")
@@ -52,6 +51,11 @@ public class EmailMessage extends FolderContent {
 	
 	@Column(name="DATE")
 	private Date date;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FOLDER_ID", nullable = false)
+	private IrisFolder folder;
+	
 
 	public EmailMessage() {
 	}
@@ -72,14 +76,6 @@ public class EmailMessage extends FolderContent {
 		this.bcc = bcc;
 		this.subject = subject;
 		this.message = message;
-	}
-
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
 	}
 	
 	public Date getDate() {
@@ -144,6 +140,14 @@ public class EmailMessage extends FolderContent {
 
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+
+	public IrisFolder getFolder() {
+		return folder;
+	}
+
+	public void setFolder(IrisFolder folder) {
+		this.folder = folder;
 	}
 
 }

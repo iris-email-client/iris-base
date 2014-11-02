@@ -8,28 +8,32 @@
  */
 package br.unb.cic.iris.persistence.sqlite3;
 
-import java.util.logging.Logger;
+import java.util.Date;
+import java.util.List;
+
+import org.hibernate.HibernateException;
 
 import br.unb.cic.iris.core.exception.DBException;
+import br.unb.cic.iris.core.model.AddressBookEntry;
 import br.unb.cic.iris.core.model.EmailMessage;
 import br.unb.cic.iris.persistence.IEmailDAO;
 
 /**
- * An implementation of @see br.unb.cic.iris.persistence.EmailDAO using the
- * SQLite databaese.
+ * An implementation of @see br.unb.cic.iris.persistence.EmailDAO using the SQLite databaese.
  * 
  * @author rbonifacio
  *
  */
-public class EmailDAO extends AbstractDAO<EmailMessage> implements IEmailDAO {
+public final class EmailDAO extends AbstractDAO<EmailMessage> implements IEmailDAO {
+	private static final String FIND_MAX_DATE = "select max(e.date) FROM EmailDAO e";
+	// select o from LoadFileHistory o where o.finishDate > :today
 
-	Logger logger = Logger.getLogger(EmailDAO.class.getName());
-	
 	/* the single instance of EmailDAO */
-	private static EmailDAO instance;
+	private static EmailDAO instance = new EmailDAO();
 
 	/* private constructor, according to the singleton pattern */
-	private EmailDAO() { }
+	private EmailDAO() {
+	}
 
 	/**
 	 * Retrieves the singleton instance of EmailDAO.
@@ -37,28 +41,24 @@ public class EmailDAO extends AbstractDAO<EmailMessage> implements IEmailDAO {
 	 * @return the singleton instance of EmailDAO
 	 */
 	public static EmailDAO instance() {
-		if (instance == null) {
-			instance = new EmailDAO();
-		}
 		return instance;
 	}
 
 	@Override
 	public void saveMessage(EmailMessage message) throws DBException {
 		super.saveOrUpdate(message);
-		/*Session session = null;
-		try {
-			logger.info("saving message into the database");
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.save(message);
-		} catch (Exception e) {
-			throw new DBException("could not save the sent message", e);
-		} finally {
-			if(session != null && session.isOpen()) {
-				session.close();
-			}
-		}*/
 	}
 
+	@Override
+	public Date lastMessageReceived() throws DBException {
+		Date date = null;
+		try {
+			startSession();
+			date = (Date) session.createQuery(FIND_MAX_DATE).uniqueResult();
+		} finally {
+			closeSession();
+		}
+		return date;
+	}
 
 }

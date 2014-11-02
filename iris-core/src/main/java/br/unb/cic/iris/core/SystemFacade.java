@@ -4,14 +4,16 @@ import static br.unb.cic.iris.core.model.Status.CONNECTED;
 import static br.unb.cic.iris.core.model.Status.NOT_CONNECTED;
 import static br.unb.cic.iris.i18n.Message.message;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.Flags;
 import javax.mail.search.AndTerm;
+import javax.mail.search.ComparisonTerm;
 import javax.mail.search.FlagTerm;
+import javax.mail.search.ReceivedDateTerm;
 import javax.mail.search.SearchTerm;
 
-import br.unb.cic.iris.core.exception.DBException;
 import br.unb.cic.iris.core.exception.EmailException;
 import br.unb.cic.iris.core.exception.EmailUncheckedException;
 import br.unb.cic.iris.core.model.EmailMessage;
@@ -22,10 +24,8 @@ import br.unb.cic.iris.mail.EmailProvider;
 import br.unb.cic.iris.mail.IEmailClient;
 import br.unb.cic.iris.mail.provider.DefaultProvider;
 import br.unb.cic.iris.mail.provider.ProviderManager;
-import br.unb.cic.iris.persistence.IAddressBookDAO;
 import br.unb.cic.iris.persistence.IEmailDAO;
 import br.unb.cic.iris.persistence.sqlite3.EmailDAO;
-import br.unb.cic.iris.util.EmailValidator;
 
 public final class SystemFacade {
 	private static final SystemFacade instance = new SystemFacade();
@@ -60,6 +60,7 @@ public final class SystemFacade {
 	public void send(EmailMessage message) throws EmailException {
 		verifyConnection();
 		client.send(message);
+		//TODO save
 	}
 
 	public List<IrisFolder> listFolders() throws EmailException {
@@ -69,25 +70,29 @@ public final class SystemFacade {
 	
 	public void downloadMessages(String folder) throws EmailException {
 		verifyConnection();
-		List<EmailMessage> messages = client.getMessages(folder);
+		
+		SearchTerm searchTerm = null;
 		IEmailDAO dao = EmailDAO.instance();
+		
+		Date lastMessageReceived = dao.lastMessageReceived();
+		if(lastMessageReceived != null){
+			// search for newer messages (relative to lastMessageReceived)
+			searchTerm = new ReceivedDateTerm(ComparisonTerm.GT, lastMessageReceived);
+		}
+		
+		//retrieve messages from server
+		List<EmailMessage> messages = client.getMessages(folder, searchTerm);
+		
+		//persist messages
 		for(EmailMessage message: messages) {
 			dao.saveMessage(message);
 		}
 	}
-
-	private void parseEmail(String email){
-		EmailValidator validator = new EmailValidator();
-		if(!validator.validate(email)){
-			String addressBookEmail = getEmailFromAddressBook(email);
-		}
-	}
-	
-	private String getEmailFromAddressBook(String nick){
-		return new AddressBook().getAddress(nick);
-	}
 	
 	public List<EmailMessage> getMessages(String folder) throws EmailException {
+		//TODO ler as mensagens do banco de dados
+		
+		
 		// apenas para testar ... retorna as mensagens recentes e nao lidas
 		Flags seen = new Flags(Flags.Flag.SEEN);
 		FlagTerm unseenFlagTerm = new FlagTerm(seen, false);

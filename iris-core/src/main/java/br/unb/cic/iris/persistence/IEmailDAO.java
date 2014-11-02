@@ -8,6 +8,8 @@
  */
 package br.unb.cic.iris.persistence;
 
+import java.util.Date;
+
 import br.unb.cic.iris.core.exception.DBException;
 import br.unb.cic.iris.core.model.EmailMessage;
 
@@ -26,5 +28,7 @@ public interface IEmailDAO {
 	 * @param message
 	 */
 	public void saveMessage(EmailMessage message) throws DBException;
+	
+	public Date lastMessageReceived() throws DBException;
 
 }

@@ -6,31 +6,25 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 
-import br.unb.cic.iris.core.exception.EmailUncheckedException;
+import br.unb.cic.iris.core.exception.DBException;
 import br.unb.cic.iris.util.HibernateUtil;
 
 public abstract class AbstractDAO<T> {
-	private Class clazz;
-	private Session session;
-	private Transaction tx;
+	private Class<T> clazz;
+	protected Session session;
 	
 	public AbstractDAO(){
 		clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		System.out.println("******************************** CLAZZ="+clazz);
 	}
 	
-	public void setSession(SessionFactory sf){
-		session = sf.openSession();
-	}
-	
-	protected void saveOrUpdate(T obj) {
+	public void saveOrUpdate(T obj) throws DBException {
         try {
-            startOperation();
+            startSession();
             session.saveOrUpdate(obj);
-            tx.commit();
+            session.getTransaction().commit();
         } catch (HibernateException e) {
             handleException(e);
         } finally {
@@ -38,11 +32,11 @@ public abstract class AbstractDAO<T> {
         }
     }
 	
-	public void delete(T t){
+	public void delete(T t) throws DBException {
 		try {
-            startOperation();
+            startSession();
             session.delete(t);
-            tx.commit();
+            session.getTransaction().commit();
         } catch (HibernateException e) {
             handleException(e);
         } finally {
@@ -50,12 +44,12 @@ public abstract class AbstractDAO<T> {
         }
 	}
 	
-	public T findById(Long id) {
+	public T findById(Long id) throws DBException {
         T obj = null;
         try {
-            startOperation();
+            startSession();
             obj = (T) session.load(clazz, id);
-            tx.commit();
+            session.getTransaction().commit();
         } catch (HibernateException e) {
             handleException(e);
         } finally {
@@ -64,13 +58,13 @@ public abstract class AbstractDAO<T> {
         return obj;
     }
 
-    public List<T> findAll() {
+    public List<T> findAll() throws DBException {
         List<T> objects = null;
         try {
-            startOperation();
+            startSession();
             Query query = session.createQuery("from " + clazz.getName());
             objects = query.list();
-            tx.commit();
+            session.getTransaction().commit();
         } catch (HibernateException e) {
             handleException(e);
         } finally {
@@ -93,18 +87,17 @@ public abstract class AbstractDAO<T> {
 		return session.createCriteria(clazz).add(example).list();
 	}
 	
-	
-	protected void handleException(HibernateException e) throws EmailUncheckedException {
-        tx.rollback();
-        throw new EmailUncheckedException(e.getMessage(), e);
+	protected void handleException(Exception e) throws DBException {
+		session.getTransaction().rollback();
+        throw new DBException(e.getMessage(), e);
     }
 
-    protected void startOperation() throws HibernateException {
+    protected void startSession() throws HibernateException {
         session = HibernateUtil.getSessionFactory().openSession();
-        tx = session.beginTransaction();
+        session.beginTransaction();
     }
     
-	private void closeSession() {
+	protected void closeSession() {
 		if(session != null && session.isOpen()) {
 			session.close();
 		}

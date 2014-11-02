@@ -25,34 +25,22 @@ public class GmailProvider implements EmailProvider {
 		this.username = username;
 		this.password = password;
 	}
+	
 
 	static {
-		properties.put(String.format("mail.%s.host", transportProtocol),
-				"smtp.gmail.com");
+		properties.put(String.format("mail.%s.host", transportProtocol), "smtp.gmail.com");
 		properties.put(String.format("mail.%s.port", transportProtocol), "587");
-		properties.put(String.format("mail.%s.auth", transportProtocol),
-				String.valueOf(transportAuth));
-		properties.put(
-				String.format("mail.%s.starttls.enable", transportProtocol),
-				String.valueOf(transportAuth));
-		// properties.put("mail.smtp.user", this.userName);
-		// properties.put("mail.smtp.password", this.password);
+		properties.put(String.format("mail.%s.auth", transportProtocol), String.valueOf(transportAuth));
+		properties.put(String.format("mail.%s.starttls.enable", transportProtocol), String.valueOf(transportAuth));
 
 		// server setting
-		properties.put(String.format("mail.%s.host", storeProtocol),
-				"imap.gmail.com");
+		properties.put(String.format("mail.%s.host", storeProtocol), "imap.gmail.com");
 		properties.put(String.format("mail.%s.port", storeProtocol), "993");
 
 		// SSL setting
-		properties.setProperty(
-				String.format("mail.%s.socketFactory.class", storeProtocol),
-				"javax.net.ssl.SSLSocketFactory");
-		properties.setProperty(
-				String.format("mail.%s.socketFactory.fallback", storeProtocol),
-				"false");
-		properties.setProperty(
-				String.format("mail.%s.socketFactory.port", storeProtocol),
-				String.valueOf("993"));
+		properties.setProperty(String.format("mail.%s.socketFactory.class", storeProtocol),	"javax.net.ssl.SSLSocketFactory");
+		properties.setProperty(String.format("mail.%s.socketFactory.fallback", storeProtocol), "false");
+		properties.setProperty(String.format("mail.%s.socketFactory.port", storeProtocol), String.valueOf("993"));
 	}
 
 	public Properties getProperties() {
@@ -108,29 +96,24 @@ public class GmailProvider implements EmailProvider {
 		return storeProtocol;
 	}
 
-	// TODO
 	@Override
 	public String getTransportHost() {
-		// TODO Auto-generated method stub
-		return null;
+		return "smtp.gmail.com";
 	}
 
 	@Override
 	public int getTransportPort() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 587;
 	}
 
 	@Override
 	public String getStoreHost() {
-		// TODO Auto-generated method stub
-		return null;
+		return "imap.gmail.com";
 	}
 
 	@Override
 	public int getStorePort() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 993;
 	}
 
 }
