@@ -15,6 +15,19 @@ public class AddressBookDAO extends AbstractDAO<AddressBookEntry> implements IAd
 			"FROM AddressBookEntry a "
 			+ "where a.nick = :pNick";
 	
+	
+	private static AddressBookDAO instance; 
+	
+	private AddressBookDAO() { } 
+	
+	public static AddressBookDAO instance() {
+		if(instance == null) {
+			instance = new AddressBookDAO();
+		}
+		return instance;
+	}
+	
+	
 	@Override
 	public void save(AddressBookEntry entry) throws DBException{
 		super.saveOrUpdate(entry);

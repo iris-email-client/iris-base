@@ -68,6 +68,7 @@ public class EmailSender implements TransportListener {
 	public static List<String> validateEmailMessage(EmailMessage message) {
 		List<String> errorMessages = new ArrayList<>();
 
+		
 		if (message == null) {
 			errorMessages.add(message("error.null.message"));
 		} else if (isEmpty(message.getFrom())) {

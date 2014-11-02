@@ -15,7 +15,7 @@ public class TestAddressBookDAO {
 	@Before
 	public void setUp() throws Exception {
 		try {
-			dao = new AddressBookDAO();
+			dao = AddressBookDAO.instance();
 			
 			AddressBookEntry entry = dao.find(USER_TEST);
 			
