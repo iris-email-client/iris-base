@@ -1,8 +1,8 @@
 package br.unb.cic.iris.core;
 
-import static br.unb.cic.iris.i18n.Message.message;
 import static br.unb.cic.iris.core.model.Status.CONNECTED;
 import static br.unb.cic.iris.core.model.Status.NOT_CONNECTED;
+import static br.unb.cic.iris.i18n.Message.message;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import javax.mail.search.AndTerm;
 import javax.mail.search.FlagTerm;
 import javax.mail.search.SearchTerm;
 
+import br.unb.cic.iris.core.exception.DBException;
 import br.unb.cic.iris.core.exception.EmailException;
 import br.unb.cic.iris.core.exception.EmailUncheckedException;
 import br.unb.cic.iris.core.model.EmailMessage;
@@ -21,6 +22,9 @@ import br.unb.cic.iris.mail.EmailProvider;
 import br.unb.cic.iris.mail.IEmailClient;
 import br.unb.cic.iris.mail.provider.DefaultProvider;
 import br.unb.cic.iris.mail.provider.ProviderManager;
+import br.unb.cic.iris.persistence.IEmailDAO;
+import br.unb.cic.iris.persistence.sqlite3.EmailDAO;
+import br.unb.cic.iris.util.EmailValidator;
 
 public final class SystemFacade {
 	private static final SystemFacade instance = new SystemFacade();
@@ -61,7 +65,27 @@ public final class SystemFacade {
 		verifyConnection();
 		return client.listFolders();
 	}
+	
+	public void downloadMessages(String folder) throws EmailException {
+		verifyConnection();
+		List<EmailMessage> messages = client.getMessages(folder);
+		IEmailDAO dao = EmailDAO.instance();
+		for(EmailMessage message: messages) {
+			dao.saveMessage(message);
+		}
+	}
 
+	private void parseEmail(String email){
+		EmailValidator validator = new EmailValidator();
+		if(!validator.validate(email)){
+			getEmailFromAddressBook(email);
+		}
+	}
+	
+	private void getEmailFromAddressBook(String nick){
+		//TODO
+	}
+	
 	public List<EmailMessage> getMessages(String folder) throws EmailException {
 		// apenas para testar ... retorna as mensagens recentes e nao lidas
 		Flags seen = new Flags(Flags.Flag.SEEN);
@@ -99,8 +123,7 @@ public final class SystemFacade {
 	public EmailProvider getProvider() {
 		return provider;
 		// TODO clonar pq nao tem como criar um Properties imutavel (nao tem via
-		// api
-		// padrao)
+		// api padrao)
 		/*
 		 * try { return provider.clone(); } catch (CloneNotSupportedException e)
 		 * { //TODO mensagem throw new EmailUncheckedException("", e); }

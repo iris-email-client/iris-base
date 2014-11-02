@@ -29,6 +29,9 @@ public class EmailMessage extends FolderContent {
 	@Column(name="ID")
 	private Long id;
 	
+	@Column(name="UID")
+	private String uid;
+	
 	@Column(name="FROM")
 	private String from;
 	
@@ -133,6 +136,14 @@ public class EmailMessage extends FolderContent {
 
 	public String getMessage() {
 		return message;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 }

@@ -19,7 +19,7 @@
 		<system></system>
 		<url></url>
 	</issueManagement>
-		<distributionManagement>
+	<distributionManagement>
 		<site>
 			<id>apache.local</id>
 			<url>file:///var/www/html/iris/</url>

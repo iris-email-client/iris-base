@@ -8,7 +8,10 @@
  */
 package br.unb.cic.iris.core;
 
+import org.junit.Assert;
 import org.junit.Test;
+
+import br.unb.cic.iris.mail.EmailProvider;
 
 /**
  * @author ExceptionHandling
@@ -17,15 +20,9 @@ import org.junit.Test;
 public class TestSystemFacade {
 
 	@Test
-	public void testSendMessage() {
-		/*try {
-			EmailMessage message = new EmailMessage("irismailclient@gmail.com", "irismailclient@gmail.com", "teste", "teste");
-			SystemFacade facade = new SystemFacade();
-			facade.send(message);
-			Assert.assertTrue(true);
-		}catch(Exception e) {
-			e.printStackTrace();
-			Assert.fail();
-		}*/
+	public void testDefaultProvider() {
+		EmailProvider provider = SystemFacade.instance().getProvider();
+		Assert.assertNotNull(provider);
 	}
+	
 }

@@ -1,7 +1,11 @@
 package br.unb.cic.iris.util;
 
+import java.util.Properties;
+
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
 
@@ -9,7 +13,13 @@ public class HibernateUtil {
 
 	private static SessionFactory buildSessionFactory() {
 		try {
-			return new Configuration().configure().buildSessionFactory();
+			Configuration configuration = new Configuration();  
+	        configuration.configure();  
+	         
+	        Properties properties = configuration.getProperties();
+	         
+	        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(properties).build();
+	        return configuration.buildSessionFactory(serviceRegistry); 
 		}
 		catch(Throwable t) {
 			throw new ExceptionInInitializerError(t);
@@ -23,6 +33,5 @@ public class HibernateUtil {
 	public static void shutdown() {
 		getSessionFactory().close();
 	}
-	
 	
 }

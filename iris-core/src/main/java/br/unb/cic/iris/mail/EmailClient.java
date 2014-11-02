@@ -40,6 +40,11 @@ public class EmailClient implements IEmailClient {
 		System.out.println("listing folders ...");
 		return receiver.listFolders();
 	}
+	
+	@Override
+	public List<EmailMessage> getMessages(String folder) throws EmailException {
+		return getMessages(folder, null);
+	}
 
 	@Override
 	public List<EmailMessage> getMessages(String folder, SearchTerm searchTerm)

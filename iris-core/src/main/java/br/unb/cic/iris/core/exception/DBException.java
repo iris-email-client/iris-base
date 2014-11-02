@@ -6,7 +6,7 @@ package br.unb.cic.iris.core.exception;
  *
  * @author rbonifacio
  */
-public class DBException extends Exception {
+public class DBException extends EmailException {
 
 	private static final long serialVersionUID = 1L;
 

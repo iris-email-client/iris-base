@@ -16,6 +16,7 @@ import javax.mail.event.FolderEvent;
 import javax.mail.event.FolderListener;
 import javax.mail.event.StoreEvent;
 import javax.mail.event.StoreListener;
+import javax.mail.internet.MimeMessage;
 import javax.mail.search.SearchTerm;
 
 import br.unb.cic.iris.core.exception.EmailException;
@@ -151,10 +152,12 @@ public class EmailReceiver implements StoreListener, FolderListener {
 			throw new EmailException(e.getMessage(), e);
 		}
 	}
-	private EmailMessage convertToIrisMessage(Message m) throws IOException,
+	private EmailMessage convertToIrisMessage(Message message) throws IOException,
 			MessagingException {
+		MimeMessage m = (MimeMessage) message;
 		// System.out.println("Converting to iris: "+m.getSubject());
 		EmailMessage msg = new EmailMessage();
+		msg.setUid(m.getMessageID());//TODO tratar null
 		msg.setBcc(convertAddressToString(m.getRecipients(RecipientType.BCC)));
 		msg.setCc(convertAddressToString(m.getRecipients(RecipientType.CC)));
 		msg.setTo(convertAddressToString(m.getRecipients(RecipientType.TO)));

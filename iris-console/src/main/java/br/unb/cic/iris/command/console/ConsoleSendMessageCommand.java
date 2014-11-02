@@ -15,6 +15,7 @@ import java.util.Scanner;
 import br.unb.cic.iris.command.SendMessageCommand;
 import br.unb.cic.iris.core.SystemFacade;
 import br.unb.cic.iris.core.model.EmailMessage;
+import br.unb.cic.iris.util.EmailValidator;
 
 /**
  * 
@@ -48,6 +49,15 @@ public class ConsoleSendMessageCommand extends SendMessageCommand {
 		return new EmailMessage(from, to, subject, content);
 	}
 
+	private String getValidEmail(Scanner sc, String question){
+		EmailValidator validator = new EmailValidator();
+		String email = read(sc, question);
+		if(!validator.validate(email)){
+			//TODO pegar do addressbook
+		}
+		return email;
+	}
+	
 	private static String read(Scanner sc, String question) {
 		askQuestion(question);
 		return sc.nextLine();

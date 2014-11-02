@@ -46,7 +46,7 @@ public class ConsoleCommandManager extends AbstractCommandManager {
 		String[] split = cmd.split(" ");
 		MailCommand command = null;
 		if (split.length > 1) {
-			command = getCommand(split[0]);
+			command = getCommand(split[0].trim());
 			command.setParameters(getParameters(split));
 		} else {
 			command = getCommand(cmd);
@@ -57,7 +57,7 @@ public class ConsoleCommandManager extends AbstractCommandManager {
 	private static String[] getParameters(String[] split) {
 		String[] parameters = new String[split.length - 1];
 		for (int i = 1; i < split.length; i++) {
-			parameters[i - 1] = split[i];
+			parameters[i - 1] = split[i].trim();
 		}
 		return parameters;
 	}

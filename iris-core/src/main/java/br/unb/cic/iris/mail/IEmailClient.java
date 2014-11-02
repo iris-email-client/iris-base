@@ -2,10 +2,6 @@ package br.unb.cic.iris.mail;
 
 import java.util.List;
 
-import javax.mail.Flags;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.search.FlagTerm;
 import javax.mail.search.SearchTerm;
 
 import br.unb.cic.iris.core.exception.EmailException;
@@ -26,6 +22,8 @@ public interface IEmailClient {
 
 	public List<EmailMessage> getMessages(String folder, SearchTerm searchTerm)
 			throws EmailException;
+	
+	public List<EmailMessage> getMessages(String folder) throws EmailException;
 
 	// public TransportStrategy getTransportStrategy();
 	public List<String> validateEmailMessage(EmailMessage message);
