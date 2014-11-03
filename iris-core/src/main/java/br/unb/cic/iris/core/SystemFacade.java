@@ -26,6 +26,7 @@ import br.unb.cic.iris.mail.provider.DefaultProvider;
 import br.unb.cic.iris.mail.provider.ProviderManager;
 import br.unb.cic.iris.persistence.IEmailDAO;
 import br.unb.cic.iris.persistence.sqlite3.EmailDAO;
+import br.unb.cic.iris.persistence.sqlite3.FolderDAO;
 
 public final class SystemFacade {
 	private static final SystemFacade instance = new SystemFacade();
@@ -60,7 +61,11 @@ public final class SystemFacade {
 	public void send(EmailMessage message) throws EmailException {
 		verifyConnection();
 		client.send(message);
-		//TODO save
+		
+		IEmailDAO dao = EmailDAO.instance();
+		IrisFolder folderOutbox = new FolderDAO().findByName(IrisFolder.OUTBOX);
+		message.setFolder(folderOutbox);
+		dao.saveMessage(message);
 	}
 
 	public List<IrisFolder> listFolders() throws EmailException {
@@ -83,9 +88,16 @@ public final class SystemFacade {
 		//retrieve messages from server
 		List<EmailMessage> messages = client.getMessages(folder, searchTerm);
 		
+		try{
 		//persist messages
 		for(EmailMessage message: messages) {
+			IrisFolder folderEntity = new FolderDAO().findByName(folder);
+			//folderEntity.addElement(message);
+			message.setFolder(folderEntity);
 			dao.saveMessage(message);
+		}
+		}catch(Throwable t){
+			t.printStackTrace();
 		}
 	}
 	

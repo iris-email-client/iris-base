@@ -2,6 +2,7 @@ package br.unb.cic.iris.command.gui;
 
 
 import br.unb.cic.iris.command.SendMessageCommand;
+import br.unb.cic.iris.core.exception.EmailException;
 import br.unb.cic.iris.core.model.EmailMessage;
 import br.unb.cic.iris.gui.SendPanel;
 
@@ -40,6 +41,12 @@ public class GuiSendMesssageCommand extends SendMessageCommand {
 
 	public void setPanel(SendPanel panel) {
 		this.panel = panel;
+	}
+
+	@Override
+	protected void handleExecute() throws EmailException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

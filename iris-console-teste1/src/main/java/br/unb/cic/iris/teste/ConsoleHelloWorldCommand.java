@@ -11,7 +11,7 @@ public class ConsoleHelloWorldCommand extends AbstractMailCommand {
 	}
 
 	@Override
-	public void execute() {
+	public void handleExecute() {
 		System.out.println("Hello World!!");
 	}
 

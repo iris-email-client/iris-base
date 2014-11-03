@@ -157,7 +157,7 @@ public class EmailReceiver implements StoreListener, FolderListener {
 		MimeMessage m = (MimeMessage) message;
 		// System.out.println("Converting to iris: "+m.getSubject());
 		EmailMessage msg = new EmailMessage();
-		msg.setUid(m.getMessageID());//TODO tratar null
+		//msg.setUid(m.getMessageID());//TODO tratar null
 		msg.setBcc(convertAddressToString(m.getRecipients(RecipientType.BCC)));
 		msg.setCc(convertAddressToString(m.getRecipients(RecipientType.CC)));
 		msg.setTo(convertAddressToString(m.getRecipients(RecipientType.TO)));

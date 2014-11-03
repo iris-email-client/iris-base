@@ -16,16 +16,13 @@ public class ConsoleStatusCommand extends AbstractMailCommand {
 	}
 
 	@Override
-	public void execute() {
+	public void handleExecute() {
 		Status status = SystemFacade.instance().getStatus();
 		System.out.println("System status: " + status);
 		if (Status.CONNECTED == status) {
 			EmailProvider provider = SystemFacade.instance().getProvider();
 			System.out.println(" - Provider: " + provider.getName());
 			System.out.println(" - Username: " + provider.getUsername());
-			// System.out.println(" - Properties: ");
-			// provider.getProperties().forEach((k, v) ->
-			// System.out.printf("   --> %s=%s%n",k,v));
 		}
 	}
 

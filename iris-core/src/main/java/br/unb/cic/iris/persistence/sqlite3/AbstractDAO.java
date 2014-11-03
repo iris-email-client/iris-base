@@ -99,6 +99,7 @@ public abstract class AbstractDAO<T> {
     
 	protected void closeSession() {
 		if(session != null && session.isOpen()) {
+			//session.flush();
 			session.close();
 		}
 	}

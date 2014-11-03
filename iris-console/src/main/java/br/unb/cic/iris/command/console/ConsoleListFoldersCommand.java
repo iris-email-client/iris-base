@@ -14,21 +14,14 @@ public class ConsoleListFoldersCommand extends AbstractMailCommand {
 
 	@Override
 	public void explain() {
-		System.out.printf("(%s) - %s %n", COMMAND_NAME,
-				message("command.list.folders.explain"));
+		System.out.printf("(%s) - %s %n", COMMAND_NAME, message("command.list.folders.explain"));
 	}
 
 	@Override
-	public void execute() {
-		try {
-			List<IrisFolder> irisFolders = SystemFacade.instance()
-					.listFolders();
-			for(IrisFolder folder: irisFolders){
-				System.out.printf(" + %s%n", folder.getName());
-			}
-		} catch (EmailException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void handleExecute() throws EmailException {
+		List<IrisFolder> irisFolders = SystemFacade.instance().listFolders();
+		for (IrisFolder folder : irisFolders) {
+			System.out.printf(" + %s%n", folder.getName());
 		}
 	}
 

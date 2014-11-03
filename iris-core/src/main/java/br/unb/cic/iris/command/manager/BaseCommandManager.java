@@ -34,8 +34,7 @@ public abstract class BaseCommandManager implements ICommandManager {
 	public MailCommand getCommand(String commandName) throws EmailException {
 		MailCommand command = manager.get(commandName);
 		if (command == null) {
-			throw new CommandNotFoundException(message(
-					"error.command.not.found", commandName));
+			throw new EmailException(message("error.command.not.found", commandName));
 		}
 		return command;
 	}
@@ -50,8 +49,8 @@ public abstract class BaseCommandManager implements ICommandManager {
 	}
 
 	private void notifyListeners(MailCommand command) {
-		//commandListeners.forEach(n -> n.commandAdded(command));
-		for(CommandListener listener: commandListeners){
+		// commandListeners.forEach(n -> n.commandAdded(command));
+		for (CommandListener listener : commandListeners) {
 			listener.commandAdded(command);
 		}
 	}

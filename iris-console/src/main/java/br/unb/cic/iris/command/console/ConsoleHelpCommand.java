@@ -28,7 +28,7 @@ public class ConsoleHelpCommand extends AbstractMailCommand {
 	}
 
 	@Override
-	public void execute() {
+	public void handleExecute() {
 		for (MailCommand c : ConsoleCommandManager.singleton().listAll()) {
 			c.explain();
 		}

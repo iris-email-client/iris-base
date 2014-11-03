@@ -24,7 +24,7 @@ public class ConsoleConnectCommand extends AbstractMailCommand {
 	}
 
 	@Override
-	public void execute() {
+	public void handleExecute() {
 		Scanner sc = new Scanner(System.in);
 
 		String providerStr = read(sc, "command.connect.label.provider");

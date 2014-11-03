@@ -28,10 +28,7 @@ import javax.persistence.Table;
 @Table(name = "TB_MESSAGE")
 public class EmailMessage extends FolderContent {
 	
-	@Column(name="UID", unique=true)
-	private String uid;
-	
-	@Column(name="FROM")
+	@Column(name="MSG_FROM")
 	private String from;
 	
 	@Column(name="RECIPIENT")
@@ -132,14 +129,6 @@ public class EmailMessage extends FolderContent {
 
 	public String getMessage() {
 		return message;
-	}
-
-	public String getUid() {
-		return uid;
-	}
-
-	public void setUid(String uid) {
-		this.uid = uid;
 	}
 
 	public IrisFolder getFolder() {

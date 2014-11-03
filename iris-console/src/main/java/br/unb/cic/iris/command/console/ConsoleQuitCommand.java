@@ -13,7 +13,7 @@ public class ConsoleQuitCommand extends AbstractMailCommand {
 	}
 
 	@Override
-	public void execute() {
+	public void handleExecute() {
 		System.out.println(message("quit"));
 		System.exit(0);
 	}

@@ -16,32 +16,22 @@ public class ConsoleGetMessagesCommand extends AbstractMailCommand {
 
 	@Override
 	public void explain() {
-		System.out.printf("(%s) - %s %n", COMMAND_NAME,
-				message("command.list.folders.explain"));
+		System.out.printf("(%s) - %s %n", COMMAND_NAME, message("command.list.folders.explain"));
 	}
 
 	@Override
-	public void execute() {
+	public void handleExecute() throws EmailException {
 		if (validParameters()) {
 			String folder = parameters[0];
 			System.out.println("Retrieving messages from folder: " + folder);
 
 			// TODO tratar parametros --> parse para Flags/SearchTerm
 			DateFormat formatter = new SimpleDateFormat("dd/MMM/yy 'at' HH:mm");
-			try {
-				List<EmailMessage> messages = SystemFacade.instance()
-						.getMessages(folder);
-				System.out.println("Total messages: " + messages.size());
-				for(EmailMessage msg: messages){
-					System.out.printf("%s - %s \t- %s%n",
-							formatter.format(msg.getDate()), msg.getFrom(),
-							msg.getSubject());
-				}
-			} catch (EmailException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			List<EmailMessage> messages = SystemFacade.instance().getMessages(folder);
+			System.out.println("Total messages: " + messages.size());
+			for (EmailMessage msg : messages) {
+				System.out.printf("%s - %s \t- %s%n", formatter.format(msg.getDate()), msg.getFrom(), msg.getSubject());
 			}
-
 		} else {
 			// TODO
 		}

@@ -15,7 +15,7 @@ public class ConsoleListProvidersCommand extends AbstractMailCommand {
 	}
 
 	@Override
-	public void execute() {
+	public void handleExecute() {
 		for (EmailProvider provider : ProviderManager.instance().getProviders()) {
 			System.out.printf("%s - %s%n", provider.getName(),
 					provider.getDescription());

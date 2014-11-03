@@ -12,29 +12,30 @@ import static br.unb.cic.iris.i18n.Message.message;
 
 import java.util.Scanner;
 
-import br.unb.cic.iris.command.SendMessageCommand;
+import br.unb.cic.iris.command.AbstractMailCommand;
 import br.unb.cic.iris.core.SystemFacade;
+import br.unb.cic.iris.core.exception.EmailException;
 import br.unb.cic.iris.core.model.EmailMessage;
 
 /**
  * 
  * @author rbonifacio
  */
-public class ConsoleSendMessageCommand extends SendMessageCommand {
+public class ConsoleSendMessageCommand extends AbstractMailCommand {
 	public static final String COMMAND_SEND = "send";
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see br.unb.cic.iris.command.MailCommand#explain()
-	 */
 	@Override
 	public void explain() {
-		System.out.printf("(%s) - %s %n", COMMAND_SEND, message(EXPLAIN_I18n));
+		System.out.printf("(%s) - %s %n", COMMAND_SEND, message("command.send.explain"));
 	}
 
 	@Override
-	protected EmailMessage createMessage() {
+	public void handleExecute() throws EmailException {
+		EmailMessage m = createMessage();
+		SystemFacade.instance().send(m);
+	}
+
+	private EmailMessage createMessage() {
 		Scanner sc = new Scanner(System.in);
 
 		String from = SystemFacade.instance().getProvider().getUsername();

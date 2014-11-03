@@ -39,7 +39,7 @@ public class LoadCommand extends AbstractMailCommand {
 	}
 
 	@Override
-	public void execute() {
+	public void handleExecute() {
 		showClassPath();
 
 		Scanner sc = new Scanner(System.in);

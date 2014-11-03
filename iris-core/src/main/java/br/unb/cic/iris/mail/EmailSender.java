@@ -42,9 +42,6 @@ public class EmailSender implements TransportListener {
 				message.saveChanges(); // some headers and id's will be set for
 				// this specific message
 
-				// getSession().getProperties().forEach((k, v) ->
-				// System.out.printf("   --> %s=%s%n",k,v));
-
 				Transport transport = createTransport();
 
 				session.connect(transport, provider.getTransportHost(),
