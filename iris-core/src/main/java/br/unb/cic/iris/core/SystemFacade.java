@@ -14,8 +14,10 @@ import javax.mail.search.FlagTerm;
 import javax.mail.search.ReceivedDateTerm;
 import javax.mail.search.SearchTerm;
 
+import br.unb.cic.iris.core.exception.DBException;
 import br.unb.cic.iris.core.exception.EmailException;
 import br.unb.cic.iris.core.exception.EmailUncheckedException;
+import br.unb.cic.iris.core.model.AddressBookEntry;
 import br.unb.cic.iris.core.model.EmailMessage;
 import br.unb.cic.iris.core.model.IrisFolder;
 import br.unb.cic.iris.core.model.Status;
@@ -25,6 +27,7 @@ import br.unb.cic.iris.mail.IEmailClient;
 import br.unb.cic.iris.mail.provider.DefaultProvider;
 import br.unb.cic.iris.mail.provider.ProviderManager;
 import br.unb.cic.iris.persistence.IEmailDAO;
+import br.unb.cic.iris.persistence.sqlite3.AddressBookDAO;
 import br.unb.cic.iris.persistence.sqlite3.EmailDAO;
 import br.unb.cic.iris.persistence.sqlite3.FolderDAO;
 
@@ -146,6 +149,11 @@ public final class SystemFacade {
 		 * try { return provider.clone(); } catch (CloneNotSupportedException e)
 		 * { //TODO mensagem throw new EmailUncheckedException("", e); }
 		 */
+	}
+
+	public void addAddressBookEntry(String name, String email) throws EmailException {
+		AddressBookDAO dao = AddressBookDAO.instance();
+		dao.save(new AddressBookEntry(name, email));
 	}
 
 }
