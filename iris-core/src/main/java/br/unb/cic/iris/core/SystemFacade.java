@@ -14,7 +14,6 @@ import javax.mail.search.FlagTerm;
 import javax.mail.search.ReceivedDateTerm;
 import javax.mail.search.SearchTerm;
 
-import br.unb.cic.iris.core.exception.DBException;
 import br.unb.cic.iris.core.exception.EmailException;
 import br.unb.cic.iris.core.exception.EmailUncheckedException;
 import br.unb.cic.iris.core.model.AddressBookEntry;
@@ -154,6 +153,15 @@ public final class SystemFacade {
 	public void addAddressBookEntry(String name, String email) throws EmailException {
 		AddressBookDAO dao = AddressBookDAO.instance();
 		dao.save(new AddressBookEntry(name, email));
+	}
+
+	public void deleteAddressBookEntry(String name) throws EmailException {
+		AddressBookDAO dao = AddressBookDAO.instance();
+		dao.delete(name);
+	}
+
+	public List<AddressBookEntry> listAddressBook() throws EmailException {
+		return AddressBookDAO.instance().findAll();
 	}
 
 }

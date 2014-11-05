@@ -27,5 +27,15 @@ public class StringUtil {
 		}
 		return retValue;
 	}
+	
+	public static String paddle(String s, int size) {
+		String tmp  = null;
+		if(s.length() < size) {
+			for(int i = 0; i < size - s.length(); i++) {
+				tmp = s.concat(" ");
+			}
+		}
+		return tmp;
+	}
 
 }
